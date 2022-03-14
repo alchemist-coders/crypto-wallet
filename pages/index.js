@@ -1,5 +1,5 @@
 const index = () => {
-  return <main>🚀</main>;
+  return <main>Landing 🚀</main>;
 };
 
 export default index;
