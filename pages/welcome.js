@@ -29,7 +29,7 @@ const welcome = () => {
             Get Started
           </button>
         </div>
-        <Image src={crypto} />
+        <Image src={crypto} priority />
       </main>
     </>
   );
