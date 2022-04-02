@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import Navbar from "../components/Navbar";
+
+import { Web3Context } from "../utils/Web3Provider";
 
 import crypto from "../assets/crypto.svg";
 
 const welcome = () => {
+  const { connect, account } = useContext(Web3Context);
+
   return (
     <>
       <Navbar />
@@ -25,9 +30,20 @@ const welcome = () => {
             culpa a cum sit quisquam ipsa cupiditate nisi? Nihil, provident
             iste.
           </p>
-          <button className="self-center bg-red-500 text-2xl text-white px-8 py-2 rounded-3xl">
-            Get Started
-          </button>
+          {account ? (
+            <Link href="/wallet">
+              <a className="self-center bg-red-500 text-2xl text-white px-8 py-2 rounded-3xl">
+                Open Wallet
+              </a>
+            </Link>
+          ) : (
+            <button
+              onClick={connect}
+              className="self-center bg-red-500 text-2xl text-white px-8 py-2 rounded-3xl"
+            >
+              Get Started
+            </button>
+          )}
         </div>
         <Image src={crypto} priority />
       </main>

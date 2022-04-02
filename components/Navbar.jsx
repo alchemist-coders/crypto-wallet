@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
+
+import { Web3Context } from "../utils/Web3Provider";
 
 import logo from "../assets/logo-white.svg";
 
 const Navbar = () => {
+  const { connect, disconnect, account } = useContext(Web3Context);
+
   return (
     <nav className="h-16 w-full px-8 bg-red-500 text-white flex justify-between items-center fixed">
       <Link href="/">
@@ -21,8 +25,20 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <button className="bg-red-900 hover:bg-red-700 active:bg-red-900 px-4 py-1 rounded-3xl transition">
-            Connect Wallet
+          <button
+            onClick={account ? disconnect : connect}
+            className="bg-red-900 hover:bg-red-700 active:bg-red-900 px-4 py-1 rounded-3xl transition relative group"
+          >
+            {account ? (
+              <>
+                {account.slice(0, 4) + "xxxx" + account.slice(-4)}
+                <span className="absolute inset-0 hidden group-hover:grid place-items-center rounded-3xl bg-red-700 active:bg-red-900">
+                  Disconnect
+                </span>
+              </>
+            ) : (
+              "Connect Wallet"
+            )}
           </button>
         </li>
       </ul>
